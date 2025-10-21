@@ -6,7 +6,7 @@
 }:
 {
 
-  options.wallrotate = {
+  options.service.wallrotate = {
     enable = lib.mkEnableOption "Automatically rotate wallpapers";
 
     package = lib.mkOption {
@@ -24,7 +24,7 @@
 
   config =
     let
-      cfg = config.wallrotate;
+      cfg = config.services.wallrotate;
     in
     lib.mkIf cfg.enable {
       systemd.user.services.wallrotate = {

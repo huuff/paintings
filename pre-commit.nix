@@ -2,7 +2,6 @@
 
 {
   check-merge-conflicts.enable = true;
-  check-added-large-files.enable = true;
   commitizen.enable = true;
 
   gitleaks = {

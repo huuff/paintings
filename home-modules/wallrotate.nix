@@ -38,7 +38,7 @@ in
       Service = {
         ExecStart = cfg.package;
         Environment = [
-          "INTERVAL=${cfg.intervalSeconds}"
+          "INTERVAL=${builtins.toString cfg.intervalSeconds}"
         ];
       };
     };

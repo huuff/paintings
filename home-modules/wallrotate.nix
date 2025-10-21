@@ -4,9 +4,12 @@
   config,
   ...
 }:
+let
+  cfg = config.services.wallrotate;
+in
 {
 
-  options.service.wallrotate = {
+  options.services.wallrotate = {
     enable = lib.mkEnableOption "Automatically rotate wallpapers";
 
     package = lib.mkOption {
@@ -22,27 +25,23 @@
     };
   };
 
-  config =
-    let
-      cfg = config.services.wallrotate;
-    in
-    lib.mkIf cfg.enable {
-      systemd.user.services.wallrotate = {
-        Unit = {
-          Description = "Automatically rotate wallpapers";
-        };
+  config = lib.mkIf cfg.enable {
+    systemd.user.services.wallrotate = {
+      Unit = {
+        Description = "Automatically rotate wallpapers";
+      };
 
-        Install = {
-          WantedBy = [ "graphical-session.target" ];
-        };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
 
-        Service = {
-          ExecStart = cfg.package;
-          Environment = {
-            INTERVAL = cfg.intervalSeconds;
-          };
+      Service = {
+        ExecStart = cfg.package;
+        Environment = {
+          INTERVAL = cfg.intervalSeconds;
         };
       };
     };
+  };
 
 }

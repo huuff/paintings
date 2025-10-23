@@ -35,6 +35,10 @@ in
         WantedBy = [ "graphical-session.target" ];
       };
 
+      Unit = {
+        After = [ "graphical-session.target" ];
+      };
+
       Service = {
         ExecStart = lib.getExe cfg.package;
         Environment = [
